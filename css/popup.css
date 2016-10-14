@@ -4,6 +4,7 @@
 body {
   font-size: 62.5%;
   padding: 20px 0;
+  background: #f1f1f1;
 }
 
 hr {
@@ -13,32 +14,38 @@ hr {
 .container-fluid {
   width: 800px;
 }
-table.table {
+.table {
   margin-bottom: 0;
+  border: solid 1px #ccc;
+  background: #fff;
 }
-table.table>thead>tr:first-child>th {
-  padding: 0;
-}
-table.table>thead>tr>th {
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+  text-align: center;
+  vertical-align: middle;
   border: none;
-  text-align: center;
-  vertical-align: middle;
+  padding: 4px;
 }
-
-table.table>tbody>tr td {
-  vertical-align: middle;
-  text-align: center;
+tr.odd {
+  background: #f1f1f1;
 }
-table.table>tbody>tr.odd {
-  background: #efefef;
-}
-
-
 .btn-satr {
+  outline: none;
   background: #66c197;
   color: #fff;
 }
-.btn-satr:hover {
+.btn-satr:hover,
+.btn-satr:active,
+.btn-satr:focus {
+  outline: none;
   background: #59a985;
   color: #fff;
+}
+.err {
+  margin-top: 1rem;
+  font-size: 1.3rem;
 }
