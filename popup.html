@@ -23,13 +23,15 @@
       </div>
     </div><!-- /row search -->
 
-    <div class="row" v-if="!status">
+    <div class="row" v-if="message !== null">
       <div class="col-xs-12">
-        {{message}}
+        <div class="err text-danger">
+          {{message}}
+        </div>
       </div>
     </div>
 
-    <div class="row" v-if="result">
+    <div class="row" v-if="result !== null">
       <div class="col-xs-12">
 
         <hr>
@@ -37,7 +39,7 @@
         <table class="table table-collapsed">
           <thead>
             <tr>
-              <th rowspan="2">件名</th>
+              <th rowspan="2" class="subject">件名</th>
               <template v-for="colname in result.header">
               <th v-if="$index % 2 === 0">{{colname}}</th>
               </template>
@@ -51,7 +53,7 @@
           <tbody>
             <template v-for="(subject, data) in result.body">
               <tr v-bind:class="{'odd':$index % 2 == 0}">
-                <td rowspan="2">{{subject}}</td>
+                <td rowspan="2" class="subject">{{subject}}</td>
                 <template v-for="value in data.stats">
                 <td v-if="$index % 2 === 0">{{value}}</td>
                 </template>
@@ -59,8 +61,8 @@
               <tr v-bind:class="{'odd':$index % 2 == 0}">
                 <template v-for="value in data.stats">
                 <td v-if="$index % 2 !== 0">
-                  <template v-if="$index == 1">{{value}}</template>
-                  <template v-if="$index > 1">{{value / data.data.length}}%</template>
+                  <template v-if="$index == 1">({{value}})</template>
+                  <template v-if="$index > 1">({{value / data.data.length}}%)</template>
                 </td>
                 </template>
               </tr>
@@ -71,7 +73,7 @@
 
       <div class="col-xs-12 text-right">
         <hr>
-        <a id="download" class="btn btn-satr" href="#" download="result.csv" onclick="handleDownload()"><i class="fa fa-download"></i> CSV Download</a>
+        <a id="download" class="btn btn-satr" href="#" v-on:click.prevent="download"><i class="fa fa-download"></i> CSV Download</a>
       </div>
     </div><!-- /row result -->
 
@@ -84,6 +86,7 @@
 <script src="js/lib/moment.min.js"></script>
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/vue.min.js"></script>
+<script src="js/lib/filesaver.min.js"></script>
 <script src="js/popup.js"></script>
 </body>
 </html>
