@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "SATORI Mail Analyzer",
+  "description": "This extension analyzes mail deliveries by subjects from satori admin page.",
+  "version": "1.0",
+  "icons": {
+    "16": "images/icon/satori_16.png",
+    "48": "images/icon/satori_48.png",
+    "128": "images/icon/satori_128.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "images/icon/satori_16.png",
+      "32": "images/icon/satori_32.png"
+    },
+    "default_title": "SATORI Mail Analyzer",
+    "default_popup": "popup.html"
+  },
+  /*"sandbox":{
+    "pages":[
+      "popup.html"
+    ]
+  },*/
+  "content_scripts": [
+    {
+      "matches": [
+        "https://satr.jp/mail_deliveries/delivered_campaign*",
+        "https://satr.jp/mail_deliveries/delivered_normal*"
+      ],
+      "js": ["js/lib/jquery-2.1.1.min.js","js/content_script.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "https://*/*",
+    "http://*/*",
+    "storage",
+    "webNavigation"
+  ]
+}
