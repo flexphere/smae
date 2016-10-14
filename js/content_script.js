@@ -3,9 +3,7 @@
    * ポップアップからのメッセージを取得
    */
   chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse){
-    var res = scrape();
-
-    if (res) {
+    if (res = scrape()) {
       sendResponse({
         success: true,
         data: res
