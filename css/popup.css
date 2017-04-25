@@ -20,15 +20,16 @@ hr {
   background: #fff;
 }
 .table>tbody>tr>td,
-.table>tbody>tr>th,
-.table>tfoot>tr>td,
-.table>tfoot>tr>th,
-.table>thead>tr>td,
 .table>thead>tr>th {
-  text-align: center;
   vertical-align: middle;
   border: none;
   padding: 4px;
+}
+.table>tbody>tr>th {
+  text-align: center;
+}
+.table>tbody>tr>td {
+  text-align: left;
 }
 tr.odd {
   background: #f1f1f1;
@@ -45,7 +46,11 @@ tr.odd {
   background: #59a985;
   color: #fff;
 }
-.err {
+.messages {
+  overflow-y:scroll;
+  height: 3em;
   margin-top: 1rem;
+  padding: 1rem;
+  background: #fff;
   font-size: 1.3rem;
 }

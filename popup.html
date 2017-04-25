@@ -5,7 +5,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="css/daterangepicker.css">
     <link rel="stylesheet" href="css/popup.css"/>
 </head>
 <body id="app">
@@ -15,23 +14,21 @@
     <div class="row">
       <div class="col-xs-12">
         <form class="search form-inline">
-          <div class="form-group">
-            <input class="form-control placeholder" type="text" id="daterange" data-mask="0000/00/00〜0000/00/00" placeholder="____/__/__〜____/__/__" />
-          </div>
-          <button class="btn btn-satr" type="submit" v-on:click.prevent="analyze"><i class="fa fa-search"></i> Analyze</button>
+          <button class="btn btn-satr pull-left" type="submit" v-on:click.prevent="analyze"><i class="fa fa-search"></i> Analyze</button>
+          <a v-if="result !== null" id="download" class="btn btn-satr pull-right" href="#" v-on:click.prevent="download"><i class="fa fa-download"></i> CSV Download</a>
         </form>
       </div>
     </div><!-- /row search -->
 
-    <div class="row" v-if="message !== null">
+    <div class="row" v-if="messages.length">
       <div class="col-xs-12">
-        <div class="err text-danger">
-          {{message}}
+        <div class="messages">
+          <div v-for="msg in messages">{{msg}}</div>
         </div>
       </div>
     </div>
 
-    <div class="row" v-if="result !== null">
+    <div class="row">
       <div class="col-xs-12">
 
         <hr>
@@ -39,47 +36,33 @@
         <table class="table table-collapsed">
           <thead>
             <tr>
-              <th rowspan="2" class="subject">件名</th>
-              <template v-for="colname in result.header">
-              <th v-if="$index % 2 === 0">{{colname}}</th>
-              </template>
-            </tr>
-            <tr>
-              <template v-for="colname in result.header">
-              <th v-if="$index % 2 !== 0">{{colname}}</th>
-              </template>
+              <th class="subject">件名</th>
+              <th>送信数</th>
+              <th>再送信数</th>
+              <th>リンククリック数</th>
+              <th>ダウンロード数</th>
+              <th>開封数（開封率）</th>
+              <th>拒否数（拒否率）</th>
             </tr>
           </thead>
           <tbody>
-            <template v-for="(subject, data) in result.body">
+            <template v-for="(subject, data) in subjects">
               <tr v-bind:class="{'odd':$index % 2 == 0}">
-                <td rowspan="2" class="subject">{{subject}}</td>
-                <template v-for="value in data.stats">
-                <td v-if="$index % 2 === 0">{{value}}</td>
-                </template>
-              </tr>
-              <tr v-bind:class="{'odd':$index % 2 == 0}">
-                <template v-for="value in data.stats">
-                <td v-if="$index % 2 !== 0">
-                  <template v-if="$index == 1">({{value}})</template>
-                  <template v-if="$index > 1">({{value / data.data.length}}%)</template>
-                </td>
-                </template>
+                <td class="subject">{{subject}}</td>
+                <td>{{data.send}}</td>
+                <td>{{data.resend}}</td>
+                <td>{{data.click}}</td>
+                <td>{{data.download}}</td>
+                <td>{{data.send - data.unread}}（{{ (100 - (data.unread / data.send * 100)).toFixed(2) }}％）</td>
+                <td>{{data.reject}}（{{ (data.reject / data.send * 100).toFixed(2) }}％）</td>
               </tr>
             </template>
           </tbody>
         </table>
       </div><!-- /col -->
-
-      <div class="col-xs-12 text-right">
-        <hr>
-        <a id="download" class="btn btn-satr" href="#" v-on:click.prevent="download"><i class="fa fa-download"></i> CSV Download</a>
-      </div>
     </div><!-- /row result -->
 
   </div><!-- /container -->
-
-
 
 <script src="js/lib/jquery-2.1.1.min.js"></script>
 <script src="js/lib/jquery-mask.min.js"></script>
