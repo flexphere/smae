@@ -1,39 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Satori Mail Analyzer</title>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/popup.css"/>
 </head>
 <body id="app">
-
   <div class="container-fluid">
-
     <div class="row">
       <div class="col-xs-12">
-        <form class="search form-inline">
-          <button class="btn btn-satr pull-left" type="submit" v-on:click.prevent="analyze"><i class="fa fa-search"></i> Analyze</button>
-          <a v-if="result !== null" id="download" class="btn btn-satr pull-right" href="#" v-on:click.prevent="download"><i class="fa fa-download"></i> CSV Download</a>
-        </form>
-      </div>
-    </div><!-- /row search -->
 
-    <div class="row" v-if="messages.length">
-      <div class="col-xs-12">
-        <div class="messages">
+        <button v-if="!loading" class="btn btn-block btn-satr" v-on:click="analyze">
+          <i class="fa fa-search"></i> 集計実行
+        </button>
+
+        <button v-if="loading" class="btn btn-block">
+          <i class="fa fa-spin fa-spinner"></i> 集計中
+        </button>
+
+        <div class="messages" v-if="messages.length">
           <div v-for="msg in messages">{{msg}}</div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-xs-12">
-
-        <hr>
-
-        <table class="table table-collapsed">
+        <table v-if="Boolean(subjects)" class="table table-collapsed">
           <thead>
             <tr>
               <th class="subject">件名</th>
@@ -50,26 +41,23 @@
               <tr v-bind:class="{'odd':$index % 2 == 0}">
                 <td class="subject">{{subject}}</td>
                 <td>{{data.send}}</td>
-                <td>{{data.resend}}</td>
-                <td>{{data.click}}</td>
-                <td>{{data.download}}</td>
-                <td>{{data.send - data.unread}}（{{ (100 - (data.unread / data.send * 100)).toFixed(2) }}％）</td>
-                <td>{{data.reject}}（{{ (data.reject / data.send * 100).toFixed(2) }}％）</td>
+                <td>{{data.resend}}（{{data.resend_per}}）</td>
+                <td>{{data.click}}（{{data.click_per}}）</td>
+                <td>{{data.download}}（{{data.download_per}}）</td>
+                <td>{{data.open}}（{{data.open_per}}％）</td>
+                <td>{{data.reject}}（{{data.reject_per}}％）</td>
               </tr>
             </template>
           </tbody>
         </table>
-      </div><!-- /col -->
-    </div><!-- /row result -->
 
-  </div><!-- /container -->
+      </div><!-- /col -->
+    </div><!-- /row -->
+  </div><!-- /container-fluid -->
 
 <script src="js/lib/jquery-2.1.1.min.js"></script>
-<script src="js/lib/jquery-mask.min.js"></script>
-<script src="js/lib/moment.min.js"></script>
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/vue.min.js"></script>
-<script src="js/lib/filesaver.min.js"></script>
 <script src="js/popup.js"></script>
 </body>
 </html>
