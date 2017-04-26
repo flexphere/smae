@@ -21,19 +21,19 @@
         </button>
 
         <div class="messages" v-if="messages.length">
-          <div v-for="msg in messages">{{msg}}</div>
+          <div class="message" v-for="msg in messages">{{msg}}</div>
         </div>
 
-        <table v-if="Boolean(subjects)" class="table table-collapsed">
+        <table v-if="loaded" class="table table-collapsed">
           <thead>
             <tr>
               <th class="subject">件名</th>
               <th>送信数</th>
-              <th>再送信数</th>
-              <th>リンククリック数</th>
-              <th>ダウンロード数</th>
-              <th>開封数（開封率）</th>
-              <th>拒否数（拒否率）</th>
+              <th colspan="2">再送信数（率）</th>
+              <th colspan="2">リンククリック（率）</th>
+              <th colspan="2">ダウンロード数（率）</th>
+              <th colspan="2">開封数（率）</th>
+              <th colspan="2">拒否数（率）</th>
             </tr>
           </thead>
           <tbody>
@@ -41,11 +41,16 @@
               <tr v-bind:class="{'odd':$index % 2 == 0}">
                 <td class="subject">{{subject}}</td>
                 <td>{{data.send}}</td>
-                <td>{{data.resend}}（{{data.resend_per}}）</td>
-                <td>{{data.click}}（{{data.click_per}}）</td>
-                <td>{{data.download}}（{{data.download_per}}）</td>
-                <td>{{data.open}}（{{data.open_per}}％）</td>
-                <td>{{data.reject}}（{{data.reject_per}}％）</td>
+                <td class="text-center">{{data.resend}}</td>
+                <td class="text-center per">({{data.resend_per}})</td>
+                <td class="text-center">{{data.click}}</td>
+                <td class="text-center per">({{data.click_per}})</td>
+                <td class="text-center">{{data.download}}</td>
+                <td class="text-center per">({{data.download_per}})</td>
+                <td class="text-center">{{data.open}}</td>
+                <td class="text-center per">({{data.open_per}}％)</td>
+                <td class="text-center">{{data.reject}}</td>
+                <td class="text-center per">({{data.reject_per}}％)</td>
               </tr>
             </template>
           </tbody>

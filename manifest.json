@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "SATORI Mail Analyzer",
-  "description": "This extension analyzes mail deliveries by subjects from satori admin page.",
+  "name": "SATORI Mail Counter",
+  "description": "Satoriのメール送信履歴をテンプレート毎に集計",
   "version": "1.0",
   "icons": {
     "16": "images/icon/satori_16.png",
@@ -13,7 +13,7 @@
       "16": "images/icon/satori_16.png",
       "32": "images/icon/satori_32.png"
     },
-    "default_title": "SATORI Mail Analyzer",
+    "default_title": "SATORI Mail Counter",
     "default_popup": "popup.html"
   },
   "content_scripts": [

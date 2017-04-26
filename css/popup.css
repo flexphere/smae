@@ -30,6 +30,7 @@ hr {
 }
 .table>tbody>tr>td {
   text-align: left;
+  padding: 3px;
 }
 tr.odd {
   background: #f1f1f1;
@@ -47,10 +48,13 @@ tr.odd {
   color: #fff;
 }
 .messages {
-  overflow-y:scroll;
-  height: 3em;
-  margin-top: 1rem;
-  padding: 1rem;
+  overflow-y: scroll;
+  height: 3.5rem;
+  margin: 1rem 0;
+  padding-bottom: 1rem;
   background: #fff;
-  font-size: 1.3rem;
+  border: solid 1px #ccc;
+}
+.messages .message {
+  padding: 1rem 1rem 0 1rem;
 }
