@@ -38,3 +38,7 @@ jspm_packages
 
 # Mac
 .DS_Store
+
+#key files
+*.pem
+*.crx
