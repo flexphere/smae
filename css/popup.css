@@ -35,6 +35,12 @@ hr {
 tr.odd {
   background: #f1f1f1;
 }
+td.per::before {
+  content: "(";
+}
+td.per::after {
+  content: "%)";
+}
 .btn-satr {
   outline: none;
   background: #66c197;
